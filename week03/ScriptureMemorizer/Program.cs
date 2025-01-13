@@ -77,7 +77,7 @@ class Program
             Console.WriteLine("Main Menu:");
             Console.WriteLine("1. Memorize a random scripture");
             Console.WriteLine("2. Exit");
-            Console.Write("\nEnter your choice (1 to memorize, or 2 / 'quit' to exit): ");
+            Console.Write("\nEnter your choice (1 to memorize, or you can use 2 or 'quit' to exit): ");
             mainMenuChoice = Console.ReadLine();
 
             if (mainMenuChoice.ToLower() == "quit" || mainMenuChoice == "2")
