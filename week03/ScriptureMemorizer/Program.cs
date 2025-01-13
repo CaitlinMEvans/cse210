@@ -66,50 +66,65 @@ class Program
             new Scripture(new Reference("Abraham", 2, 9), "And I will make of thee a great nation, and I will bless thee above measure, and make thy name great among all nations."),
         };
 
+        // Randomize which scripture pops up for the user 
+        Random random = new Random();
         int memorizedCount = 0; // Counter for memorized scriptures
 
-        // Iterate through each scripture
-        foreach (var scripture in scriptures)
+        string mainMenuChoice = "";
+        while (mainMenuChoice.ToLower() != "quit")
         {
             Console.Clear();
-            Console.WriteLine($"Memorizing Scripture {memorizedCount + 1}/{scriptures.Count}:");
-            string userInput = "";
+            Console.WriteLine("Main Menu:");
+            Console.WriteLine("1. Memorize a random scripture");
+            Console.WriteLine("2. Exit");
+            Console.Write("\nEnter your choice (1 to memorize, or 'quit' to exit): ");
+            mainMenuChoice = Console.ReadLine();
 
-            while (!scripture.IsCompletelyHidden())
+            if (mainMenuChoice.ToLower() == "quit" || mainMenuChoice == "2")
             {
-                Console.Clear();
-                Console.WriteLine(scripture.GetDisplayText());
-                Console.WriteLine("\nPress Enter to hide more words or type 'quit' to move to the next scripture.");
-                userInput = Console.ReadLine();
+                break; // Exit the program
+            }
+            else if (mainMenuChoice == "1")
+            {
+                // Select a random scripture
+                Scripture scripture = scriptures[random.Next(scriptures.Count)];
 
-                if (userInput.ToLower() == "quit") // Check if the user wants to quit
+                string userInput = "";
+                while (!scripture.IsCompletelyHidden())
                 {
-                    Console.WriteLine("Exiting the current scripture...");
-                    return; // Exit the program entirely
+                    Console.Clear();
+                    Console.WriteLine("Memorizing Scripture:");
+                    Console.WriteLine(scripture.GetDisplayText());
+                    Console.WriteLine("\nPress Enter to hide more words or type 'quit' to return to the menu.");
+                    userInput = Console.ReadLine();
+
+                    if (userInput.ToLower() == "quit")
+                    {
+                        break; // Exit the scripture loop and return to the main menu
+                    }
+
+                    scripture.HideRandomWords(3); // Hide 3 words at a time
                 }
 
-                scripture.HideRandomWords(3); // Hide 3 words at a time
+                if (scripture.IsCompletelyHidden())
+                {
+                    memorizedCount++;
+                    Console.WriteLine("\nCongratulations! You've memorized this scripture.");
+                }
+
+                Console.WriteLine("\nPress Enter to return to the main menu.");
+                Console.ReadLine(); // Wait for user input before returning to the menu
             }
-
-            // Check if the scripture is fully hidden
-            if (scripture.IsCompletelyHidden())
+            else
             {
-                memorizedCount++;
-                Console.Clear();
-                Console.WriteLine("Congratulations! You've memorized this scripture.");
-            }
-
-            Console.WriteLine("\nPress Enter to continue to the next scripture or type 'quit' to exit.");
-            userInput = Console.ReadLine();
-
-            if (userInput.ToLower() == "quit") // Check if the user wants to quit
-            {
-                break; // Exit the foreach loop
+                Console.WriteLine("Invalid choice. Please enter 1 or 'quit'.");
+                Console.WriteLine("Press Enter to continue.");
+                Console.ReadLine();
             }
         }
 
         Console.Clear();
-        Console.WriteLine($"You have memorized {memorizedCount} out of {scriptures.Count} scriptures!");
+        Console.WriteLine($"You have memorized {memorizedCount} scriptures during this session.");
         Console.WriteLine("\nThank you for using the Scripture Memorizer Program. Goodbye!");
     }
 }
