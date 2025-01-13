@@ -66,7 +66,7 @@ class Program
             new Scripture(new Reference("Abraham", 2, 9), "And I will make of thee a great nation, and I will bless thee above measure, and make thy name great among all nations."),
         };
 
-         int memorizedCount = 0; // Counter for memorized scriptures
+        int memorizedCount = 0; // Counter for memorized scriptures
 
         // Iterate through each scripture
         foreach (var scripture in scriptures)
@@ -75,17 +75,20 @@ class Program
             Console.WriteLine($"Memorizing Scripture {memorizedCount + 1}/{scriptures.Count}:");
             string userInput = "";
 
-            while (!scripture.IsCompletelyHidden() && userInput.ToLower() != "quit")
+            while (!scripture.IsCompletelyHidden())
             {
                 Console.Clear();
                 Console.WriteLine(scripture.GetDisplayText());
                 Console.WriteLine("\nPress Enter to hide more words or type 'quit' to move to the next scripture.");
                 userInput = Console.ReadLine();
 
-                if (userInput.ToLower() != "quit")
+                if (userInput.ToLower() == "quit") // Check if the user wants to quit
                 {
-                    scripture.HideRandomWords(3); // Hide 3 words at a time
+                    Console.WriteLine("Exiting the current scripture...");
+                    return; // Exit the program entirely
                 }
+
+                scripture.HideRandomWords(3); // Hide 3 words at a time
             }
 
             // Check if the scripture is fully hidden
@@ -99,9 +102,9 @@ class Program
             Console.WriteLine("\nPress Enter to continue to the next scripture or type 'quit' to exit.");
             userInput = Console.ReadLine();
 
-            if (userInput.ToLower() == "quit")
+            if (userInput.ToLower() == "quit") // Check if the user wants to quit
             {
-                break;
+                break; // Exit the foreach loop
             }
         }
 
