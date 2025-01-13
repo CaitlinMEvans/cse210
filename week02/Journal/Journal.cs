@@ -1,3 +1,5 @@
+// CREATIVITY ADD - Save and Load the Journals
+// Save the journal to a file, handling both CSV and JSON formats
 using System;
 using System.Collections.Generic;
 using System.IO;
