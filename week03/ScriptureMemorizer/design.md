@@ -111,6 +111,11 @@ All words in the scripture have been hidden.
 
 ---
 
+## Design Considerations
+**Encapsulation:** All attributes are private, and public methods are provided for controlled access.
+**Behavior Delegation:** The Scripture class delegates word hiding and visibility to the Word class, ensuring single-responsibility.
+**Flexibility:**  By using Word objects instead of strings, the program can adapt to future changes (e.g., adding additional attributes to words).
+
 ## Class Diagram
 
 ```plaintext
