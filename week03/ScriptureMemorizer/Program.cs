@@ -66,11 +66,13 @@ class Program
             new Scripture(new Reference("Abraham", 2, 9), "And I will make of thee a great nation, and I will bless thee above measure, and make thy name great among all nations."),
         };
 
+         int memorizedCount = 0; // Counter for memorized scriptures
+
         // Iterate through each scripture
         foreach (var scripture in scriptures)
         {
             Console.Clear();
-            Console.WriteLine("Memorizing Scripture:");
+            Console.WriteLine($"Memorizing Scripture {memorizedCount + 1}/{scriptures.Count}:");
             string userInput = "";
 
             while (!scripture.IsCompletelyHidden() && userInput.ToLower() != "quit")
@@ -86,9 +88,15 @@ class Program
                 }
             }
 
-            Console.Clear();
-            Console.WriteLine(scripture.GetDisplayText());
-            Console.WriteLine("\nFinished this scripture. Press Enter to continue to the next one or type 'quit' to exit.");
+            // Check if the scripture is fully hidden
+            if (scripture.IsCompletelyHidden())
+            {
+                memorizedCount++;
+                Console.Clear();
+                Console.WriteLine("Congratulations! You've memorized this scripture.");
+            }
+
+            Console.WriteLine("\nPress Enter to continue to the next scripture or type 'quit' to exit.");
             userInput = Console.ReadLine();
 
             if (userInput.ToLower() == "quit")
@@ -97,6 +105,8 @@ class Program
             }
         }
 
+        Console.Clear();
+        Console.WriteLine($"You have memorized {memorizedCount} out of {scriptures.Count} scriptures!");
         Console.WriteLine("\nThank you for using the Scripture Memorizer Program. Goodbye!");
     }
 }
