@@ -1,3 +1,5 @@
+//Creative Add: I have 10 scriptures per section: OLD Testament, New Testament, BOM, D&C, and PoGP. The scriptures come to the user in a random order for better UX. 
+
 using System;
 using System.Collections.Generic;
 
