@@ -1,0 +1,85 @@
+W04 YouTube Video Program Design - Added creativity: like and dislike counts on the comments
+-----------------
+Workflow
+-----------------
+
+Initialization:
+-----------------
+Create Video objects with attributes such as title, author, and length.
+Add Comment objects to each Video with attributes like commenter’s name, comment text, likes, and dislikes.
+
+Storage:
+Store all the videos in a List<Video> for easy iteration.
+
+Display:
+-----------------
+Iterate through the list of videos and:
+Display the title, author, length, and number of comments for each video.
+Display each comment with its details, including likes and dislikes.
+
+---------------------------------------------------------------------------------------------
+
+1. Video Class
+-----------------
+Responsibilities:
+
+Store details about a video:
+- title
+- author
+- length (in seconds).
+
+*Maintain a list of comments associated with the video*
+Provide methods to:
+- Add comments to the video.
+- Retrieve the number of comments.
+- Display video details, including comments and their like/dislike counts.
+
+-----------------
+Attributes:
+-----------------
+_title: string — The title of the video.
+_author: string — The author or creator of the video.
+_lengthInSeconds: int — The length of the video in seconds.
+_comments: List<Comment> — A list of comments associated with the video.
+Methods:
+
+AddComment(Comment comment): void — Adds a comment to the list of comments.
+GetNumberOfComments(): int — Returns the total number of comments on the video.
+DisplayVideoDetails(): void — Displays the video’s title, author, length, number of comments, and the details of each comment.
+
+
+2. Comment Class
+-----------------
+Responsibilities:
+- Represent a single comment on a video.
+- Track the commenter’s name, the comment text, and the like/dislike count.
+
+Provide methods to:
+- Increment the like or dislike count.
+- Display the comment and its like/dislike count.
+
+-----------------
+Attributes:
+-----------------
+_author: string — The name of the commenter.
+_text: string — The comment text.
+_likes: int — The number of likes the comment has received.
+_dislikes: int — The number of dislikes the comment has received.
+Methods:
+
+Like(): void — Increments the like count.
+Dislike(): void — Increments the dislike count.
+DisplayComment(): void — Displays the comment’s author, text, like count, and dislike count.
+
++----------------+         +----------------+
+|    Video       |         |   Comment      |
++----------------+         +----------------+
+| - _title       |         | - _author      |
+| - _author      |         | - _text        |
+| - _lengthInSec |         | - _likes       |
+| - _comments    |         | - _dislikes    |
++----------------+         +----------------+
+| + AddComment() |         | + Like()       |
+| + GetNumOfComm()|        | + Dislike()    |
+| + DisplayVideo()|        | + DisplayComm()|
++----------------+         +----------------+
