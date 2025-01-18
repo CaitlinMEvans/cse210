@@ -1,4 +1,4 @@
-public class Customer
+class Customer
 {
     private string _name;
     private Address _address;
@@ -9,11 +9,18 @@ public class Customer
         _address = address;
     }
 
-    public string Name => _name;
-    public Address Address => _address;
-
     public bool IsInUSA()
     {
         return _address.IsInUSA();
+    }
+
+    public string GetName()
+    {
+        return _name;
+    }
+
+    public Address GetAddress()
+    {
+        return _address;
     }
 }

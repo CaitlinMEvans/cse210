@@ -1,43 +1,43 @@
-using System;
+// ADDED CREATIVITY: Added a magial currency conversion to real money (Galleon, sickle, knut to USD)
+// and a magical delivery system to deliver the items to the wizard's house 
+// (owl post = standard, floo powder = express and portkey = instant)
 
+using System;
+using System.Collections.Generic;
+
+// Main Program
 class Program
 {
     static void Main(string[] args)
     {
         // Console.WriteLine("Hello World! This is the OnlineOrdering Project.");
-        Console.WriteLine("Welcome to Caitlin's Magical Online Ordering System!\n");
-
-        // Welcome message
-        Console.WriteLine("Welcome to the Magical Ordering System!\n");
+        Console.WriteLine("Welcome to the Magical Online Ordering Program!");
 
         // Create customers with magical addresses
-        Customer customer1 = new Customer("Albus the Wise", new Address("4 Wandmaker's Way", "Hogsmeade", "Scottish Highlands", "UK"));
-        Customer customer2 = new Customer("Viktor the Bold", new Address("1 Durmstrang Fjord", "Durmstrang", "Northern Mountains", "Norway"));
-        Customer customer3 = new Customer("Fleur the Elegant", new Address("12 Beauxbatons Court", "Paris", "Ile-de-France", "France"));
+        Customer customer1 = new Customer("Harry Potter", new Address("4 Privet Drive", "Little Whinging", "Surrey", "UK"));
+        Customer customer2 = new Customer("Hermione Granger", new Address("Hogwarts School of Witchcraft and Wizardry", "Hogsmeade", "Scotland", "UK"));
 
-        // Create orders
-        Order order1 = new Order(customer1);
-        order1.AddProduct(new Product("Phoenix Feather Wand", "W001", 75.50m, 1));
-        order1.AddProduct(new Product("Potion Ingredients Kit", "P002", 45.99m, 2));
+        // Create products with magical themes
+        Product product1 = new Product("Elder Wand", "W001", 150.00m, 1);
+        Product product2 = new Product("Invisibility Cloak", "W002", 200.00m, 1);
+        Product product3 = new Product("Time Turner", "W003", 500.00m, 1);
+        Product product4 = new Product("Nimbus 2025", "B001", 300.00m, 1);
 
-        Order order2 = new Order(customer2);
-        order2.AddProduct(new Product("Dragonhide Gloves", "D001", 50.00m, 1));
-        order2.AddProduct(new Product("Enchanted Broomstick", "B002", 300.00m, 1));
+        // Create orders with magical delivery options
+        Order order1 = new Order(customer1, "Owl Post");
+        order1.AddProduct(product1);
+        order1.AddProduct(product2);
 
-        Order order3 = new Order(customer3);
-        order3.AddProduct(new Product("Veela Hair Wand", "V003", 85.00m, 1));
-        order3.AddProduct(new Product("Spellbook: Charms 101", "S004", 25.99m, 2));
+        Order order2 = new Order(customer2, "Floo Network");
+        order2.AddProduct(product3);
+        order2.AddProduct(product4);
 
-        // Store orders in a list
-        List<Order> orders = new List<Order> { order1, order2, order3 };
-
-        // Display order details
+        // Display orders
+        List<Order> orders = new List<Order> { order1, order2 };
         foreach (var order in orders)
         {
-            Console.WriteLine(order.GetPackingLabel());
-            Console.WriteLine(order.GetShippingLabel());
-            Console.WriteLine($"Total Cost: {order.CalculateTotalCost():C}\n");
-            Console.WriteLine(new string('-', 40));
+            Console.WriteLine(order.GetOrderDetails());
+            Console.WriteLine();
         }
     }
 }

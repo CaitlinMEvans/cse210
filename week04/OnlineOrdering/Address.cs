@@ -1,4 +1,4 @@
-public class Address
+class Address
 {
     private string _street;
     private string _city;
@@ -15,7 +15,7 @@ public class Address
 
     public bool IsInUSA()
     {
-        return _country.ToUpper() == "USA";
+        return _country.ToLower() == "usa";
     }
 
     public string GetFullAddress()

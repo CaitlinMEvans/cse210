@@ -1,4 +1,4 @@
-public class Product
+class Product
 {
     private string _name;
     private string _productId;
@@ -13,11 +13,18 @@ public class Product
         _quantity = quantity;
     }
 
-    public string Name => _name;
-    public string ProductId => _productId;
-
     public decimal CalculateTotalCost()
     {
         return _price * _quantity;
+    }
+
+    public string GetName()
+    {
+        return _name;
+    }
+
+    public string GetProductId()
+    {
+        return _productId;
     }
 }
