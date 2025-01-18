@@ -11,7 +11,7 @@ class Program
     static void Main(string[] args)
     {
         // Console.WriteLine("Hello World! This is the OnlineOrdering Project.");
-        Console.WriteLine("Welcome to the Magical Online Ordering Program!");
+        Console.WriteLine("Welcome to Caitlin's Magical Online Ordering Program!");
 
         // Create customers with magical addresses
         Customer customer1 = new Customer("Harry Potter", new Address("4 Privet Drive", "Little Whinging", "Surrey", "UK"));
