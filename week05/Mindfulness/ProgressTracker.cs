@@ -53,7 +53,7 @@ public class ProgressTracker
         }
         else if (input == "2")
         {
-            Console.WriteLine("\nThank you for using the Mindfulness Program. Goodbye!");
+            Console.WriteLine("\nThank you for using the Woodland Mindfulness Program - Goodbye!");
             Environment.Exit(0);
         }
         else
