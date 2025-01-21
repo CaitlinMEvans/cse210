@@ -1,22 +1,28 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-
 public class ProgressTracker
 {
-    private List<string> _completedActivities = new List<string>();
+    private Dictionary<string, int> _completedActivities;
     private int _totalTime;
-    private const string ProgressFile = "progress.txt"; // File to save progress
 
     public ProgressTracker()
     {
-        LoadProgress();
+        _completedActivities = new Dictionary<string, int>();
+        _totalTime = 0;
     }
 
     public void LogActivity(string activityName, int duration)
     {
-        _completedActivities.Add(activityName);
+        if (_completedActivities.ContainsKey(activityName))
+        {
+            _completedActivities[activityName]++;
+        }
+        else
+        {
+            _completedActivities[activityName] = 1;
+        }
+
         _totalTime += duration;
+
+        // Save progress after logging
         SaveProgress();
     }
 
@@ -25,61 +31,42 @@ public class ProgressTracker
         Console.Clear();
         Console.WriteLine("Progress Tracker:");
         Console.WriteLine("Completed Activities:");
-        foreach (string activity in _completedActivities)
+
+        foreach (var activity in _completedActivities)
         {
-            Console.WriteLine($"- {activity}");
+            Console.WriteLine($"- {activity.Key}: {activity.Value} times");
         }
+
         Console.WriteLine($"Total Time Spent: {_totalTime} seconds\n");
-
-        Console.WriteLine("Would you like to:");
-        Console.WriteLine("1. Return to the activities menu");
-        Console.WriteLine("2. Exit the program");
-
-        string input = Console.ReadLine()?.Trim();
-        if (input == "1")
-        {
-            Console.WriteLine("\nReturning to the activities menu...");
-            Thread.Sleep(1000); // Short delay before returning
-        }
-        else if (input == "2")
-        {
-            Console.WriteLine("\nThank you for using the Mindfulness Program. Goodbye!");
-            Environment.Exit(0);
-        }
-        else
-        {
-            Console.WriteLine("\nInvalid option. Returning to the activities menu...");
-            Thread.Sleep(1000);
-        }
     }
 
+    // Save progress to a file
     private void SaveProgress()
     {
-        using (StreamWriter writer = new StreamWriter(ProgressFile))
+        using (StreamWriter writer = new StreamWriter("progress.txt"))
         {
             writer.WriteLine(_totalTime);
-            foreach (string activity in _completedActivities)
+            foreach (var activity in _completedActivities)
             {
-                writer.WriteLine(activity);
+                writer.WriteLine($"{activity.Key}|{activity.Value}");
             }
         }
     }
 
-    private void LoadProgress()
+    // Load progress from a file
+    public void LoadProgress()
     {
-        if (File.Exists(ProgressFile))
+        if (File.Exists("progress.txt"))
         {
-            using (StreamReader reader = new StreamReader(ProgressFile))
+            string[] lines = File.ReadAllLines("progress.txt");
+            if (lines.Length > 0)
             {
-                if (int.TryParse(reader.ReadLine(), out int time))
-                {
-                    _totalTime = time;
-                }
+                _totalTime = int.Parse(lines[0]);
 
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                for (int i = 1; i < lines.Length; i++)
                 {
-                    _completedActivities.Add(line);
+                    string[] parts = lines[i].Split('|');
+                    _completedActivities[parts[0]] = int.Parse(parts[1]);
                 }
             }
         }
