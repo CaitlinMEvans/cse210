@@ -49,7 +49,7 @@ public class ProgressTracker
         if (input == "1")
         {
             Console.WriteLine("\nReturning to the activities menu...");
-            Thread.Sleep(1000); // Short delay before returning
+            Thread.Sleep(900); // Short delay before returning
         }
         else if (input == "2")
         {
@@ -59,7 +59,7 @@ public class ProgressTracker
         else
         {
             Console.WriteLine("\nInvalid option. Returning to the activities menu...");
-            Thread.Sleep(1000);
+            Thread.Sleep(900);
         }
     }
 
