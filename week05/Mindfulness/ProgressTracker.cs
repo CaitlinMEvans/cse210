@@ -1,12 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+
 public class ProgressTracker
 {
-    private Dictionary<string, int> _completedActivities;
-    private int _totalTime;
+    private Dictionary<string, int> _completedActivities; // Tracks counts of each activity
+    private int _totalTime; // Total time spent in activities
+    private const string ProgressFile = "progress.txt"; // File to save progress
 
     public ProgressTracker()
     {
         _completedActivities = new Dictionary<string, int>();
-        _totalTime = 0;
+        LoadProgress();
     }
 
     public void LogActivity(string activityName, int duration)
@@ -21,8 +26,6 @@ public class ProgressTracker
         }
 
         _totalTime += duration;
-
-        // Save progress after logging
         SaveProgress();
     }
 
@@ -31,19 +34,38 @@ public class ProgressTracker
         Console.Clear();
         Console.WriteLine("Progress Tracker:");
         Console.WriteLine("Completed Activities:");
-
         foreach (var activity in _completedActivities)
         {
             Console.WriteLine($"- {activity.Key}: {activity.Value} times");
         }
-
         Console.WriteLine($"Total Time Spent: {_totalTime} seconds\n");
+
+        // Prompt the user for next steps
+        Console.WriteLine("Would you like to:");
+        Console.WriteLine("1. Return to the activities menu");
+        Console.WriteLine("2. Exit the program");
+
+        string input = Console.ReadLine()?.Trim();
+        if (input == "1")
+        {
+            Console.WriteLine("\nReturning to the activities menu...");
+            Thread.Sleep(1000); // Short delay before returning
+        }
+        else if (input == "2")
+        {
+            Console.WriteLine("\nThank you for using the Mindfulness Program. Goodbye!");
+            Environment.Exit(0);
+        }
+        else
+        {
+            Console.WriteLine("\nInvalid option. Returning to the activities menu...");
+            Thread.Sleep(1000);
+        }
     }
 
-    // Save progress to a file
     private void SaveProgress()
     {
-        using (StreamWriter writer = new StreamWriter("progress.txt"))
+        using (StreamWriter writer = new StreamWriter(ProgressFile))
         {
             writer.WriteLine(_totalTime);
             foreach (var activity in _completedActivities)
@@ -53,20 +75,25 @@ public class ProgressTracker
         }
     }
 
-    // Load progress from a file
-    public void LoadProgress()
+    private void LoadProgress()
     {
-        if (File.Exists("progress.txt"))
+        if (File.Exists(ProgressFile))
         {
-            string[] lines = File.ReadAllLines("progress.txt");
-            if (lines.Length > 0)
+            using (StreamReader reader = new StreamReader(ProgressFile))
             {
-                _totalTime = int.Parse(lines[0]);
-
-                for (int i = 1; i < lines.Length; i++)
+                if (int.TryParse(reader.ReadLine(), out int time))
                 {
-                    string[] parts = lines[i].Split('|');
-                    _completedActivities[parts[0]] = int.Parse(parts[1]);
+                    _totalTime = time;
+                }
+
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] parts = line.Split('|');
+                    if (parts.Length == 2 && int.TryParse(parts[1], out int count))
+                    {
+                        _completedActivities[parts[0]] = count;
+                    }
                 }
             }
         }
