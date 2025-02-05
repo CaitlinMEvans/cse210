@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+// Added Creativity: Visual Progress Representation - A progress bar showing “5/10” (Attend 10 times) - #####----- 1/10." and Weekly Challenge: Complete 2 Simple Goals and 1 Checklist Goal
+// Example:
+// - SimpleGoal: 0/2
+// - ChecklistGoal: 0/1
+
 // Base Goal Class
 abstract class Goal
 {
